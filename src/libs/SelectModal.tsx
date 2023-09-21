@@ -1,13 +1,59 @@
-import {Button, Modal} from "antd";
-import {FC} from "react";
+import {FC, useState} from 'react';
+import { TreeSelect } from 'antd';
 
-const SelectModal:FC<{open:boolean,onClick:(val:any)=>void}> = ({open,onClick}) => {
-    return <Modal open={open}>
-        nihao
-        <Button onClick={()=>{
-            onClick({data:{name:'nihao'}})
-        }}></Button>
-    </Modal>
-}
+const treeData = [
+    {
+        value: 'parent 1',
+        title: 'parent 1',
+        children: [
+            {
+                value: 'parent 1-0',
+                title: 'parent 1-0',
+                children: [
+                    {
+                        value: 'leaf1',
+                        title: 'leaf1',
+                    },
+                    {
+                        value: 'leaf2',
+                        title: 'leaf2',
+                    },
+                ],
+            },
+            {
+                value: 'parent 1-1',
+                title: 'parent 1-1',
+                children: [
+                    {
+                        value: 'leaf3',
+                        title: <b style={{ color: '#08c' }}>leaf3</b>,
+                    },
+                ],
+            },
+        ],
+    },
+];
+const SelectModal: FC<{name:string}> = ({name}) => {
+    const [value, setValue] = useState<string>();
 
-export default SelectModal
+    console.log(name)
+    const onChange = (newValue: string) => {
+        setValue(newValue);
+    };
+
+    return (
+        <TreeSelect
+            showSearch
+            style={{ width: '100%' }}
+            value={value}
+            dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+            placeholder="Please select"
+            allowClear
+            treeDefaultExpandAll
+            onChange={onChange}
+            treeData={treeData}
+        />
+    );
+};
+
+export default SelectModal;

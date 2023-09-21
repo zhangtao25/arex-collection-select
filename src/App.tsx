@@ -11,7 +11,7 @@ function App() {
 
   return (
       <div>
-          <SelectModal open={true}></SelectModal>
+          <SelectModal name={'test'}></SelectModal>
       </div>
   )
 }
